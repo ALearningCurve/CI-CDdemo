@@ -5,6 +5,7 @@ jobs:
     docker:
       - image: circleci/node:10-browsers
     steps:
+      - run: cd angular-demo
       - checkout
       - run: ls
       - restore_cache:

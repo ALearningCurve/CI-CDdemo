@@ -1,6 +1,7 @@
 version: 2
 jobs:
   build:
+    run: ls
     working_directory: ~/angular-demo
     docker:
       - image: circleci/node:10-browsers

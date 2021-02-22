@@ -7,6 +7,7 @@ jobs:
     steps:
       - checkout
       - run: ls
+      - run: cwd
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:

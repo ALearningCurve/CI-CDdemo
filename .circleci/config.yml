@@ -1,33 +1,18 @@
+
 version: 2
 jobs:
   build:
-    working_directory: ~/CI-CDdemo
+    working_directory:working_directory: ~/CI-CDdemo
     docker:
-      - image: circleci/node:6-browsers
+      - image: circleci/node:10-browsers
     steps:
       - checkout
-      - run: cd angular-demo && ls
-
       - restore_cache:
-          key: dependency-cache-{{ checksum "./angular-demo/yarn.lock" }}
-      - run:
-          name: install-dependencies
-          command: cd angular-demo && yarn install
+          key: CI-CDdemo-{{ .Branch }}-{{ checksum "./angular-demo/package-lock.json" }}
+      - run: cd angular-demo && npm install
       - save_cache:
-          key: dependency-cache-{{ checksum "./angular-demo/yarn.lock" }}
+          key: CI-CDdemo-{{ .Branch }}-{{ checksum "./angular-demo/package-lock.json" }}
           paths:
-            - ./angular-demo/.cache/yarn
-            - ./angular-demo/node_modules
-      - run:
-          name: angular-build
-          command:  cd angular-demo && yarn ng -- build --prod --aot --no-progress
-      - run:
-          name: angular-test
-          command:  cd angular-demo && yarn test -- --single-run --no-progress
-      - store_artifacts:
-          path:  ./angular-demo/test-results.xml
-      - run:
-          name: angular-lint
-          command:  cd angular-demo && yarn lint -- --formatters-dir ./tslint-formatters --format junit -o tslint.xml
-      - store_artifacts:
-          path: ./angular-demo/tslint.xml
+            - "node_modules"
+      - run: cd angular-demo && npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+      - run: cd angular-demo && npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js

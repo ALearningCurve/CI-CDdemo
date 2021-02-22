@@ -30,7 +30,7 @@ jobs:
             - "node_modules"
       - run:
           name: Building
-          command: npm run build
+          command: cd angular-demo && npm run build
       - persist_to_workspace:
           root: ./angular-demo
           paths:

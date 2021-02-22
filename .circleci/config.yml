@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/CI-CDdemo/angular-demo
+    working_directory: ~/CI-CDdemo/angular-demo/angular-demo
     docker:
       - image: circleci/node:6-browsers
     steps:

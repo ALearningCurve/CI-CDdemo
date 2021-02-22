@@ -9,27 +9,25 @@ jobs:
       - run: cd angular-demo && ls
 
       - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ checksum "./angular-demo/yarn.lock" }}
       - run:
           name: install-dependencies
-          command: yarn install
+          command: cd angular-demo && yarn install
       - save_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ checksum "./angular-demo/yarn.lock" }}
           paths:
-            - ~/.cache/yarn
-            - ./node_modules
+            - ./angular-demo/.cache/yarn
+            - ./angular-demo/node_modules
       - run:
           name: angular-build
-          command: yarn ng -- build --prod --aot --no-progress
+          command:  cd angular-demo && yarn ng -- build --prod --aot --no-progress
       - run:
           name: angular-test
-          command: yarn test -- --single-run --no-progress
+          command:  cd angular-demo && yarn test -- --single-run --no-progress
       - store_artifacts:
-          path: test-results.xml
-          prefix: tests
+          path:  ./angular-demo/test-results.xml
       - run:
           name: angular-lint
-          command: yarn lint -- --formatters-dir ./tslint-formatters --format junit -o tslint.xml
+          command:  cd angular-demo && yarn lint -- --formatters-dir ./tslint-formatters --format junit -o tslint.xml
       - store_artifacts:
-          path: tslint.xml
-          prefix: lint
+          path: ./angular-demo/tslint.xml

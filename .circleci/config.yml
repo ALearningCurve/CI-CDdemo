@@ -8,7 +8,7 @@ jobs:
       # - run: cd angular-demo
       - run: ls
       - checkout
-      - run: ls
+      - run: cd angular-demo
       - restore_cache:
           key: angular-demo-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run: npm install

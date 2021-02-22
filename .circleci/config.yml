@@ -1,13 +1,13 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/CI-CDdemo/angular-demo/angular-demo
+    working_directory: ~/CI-CDdemo
     docker:
       - image: circleci/node:6-browsers
     steps:
       - checkout
-      - run: ls
-      - run: pwd
+      - run: cd angular-demo && ls
+
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:

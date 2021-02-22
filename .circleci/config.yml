@@ -32,9 +32,9 @@ jobs:
           name: Building
           command: cd angular-demo && npm run build
       - persist_to_workspace:
-          root: ./angular-demo
+          root: .
           paths:
-            - dist
+            - angular-demo/dist
 workflows:
     version: 2
     # the test workflow
@@ -44,7 +44,16 @@ workflows:
               filters:
                   branches:
                       only:
+                          - staging
+                          - master
+                          - main
+                          - prod
+          - test:
+              filters:
+                  branches:
+                      only:
                           - develop
                           - staging
                           - master
                           - main
+                          - prod

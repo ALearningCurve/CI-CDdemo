@@ -7,7 +7,6 @@ jobs:
     steps:
       - checkout
       - run: ls
-      - working_directory: ~/CI-CDdemo/angular-demo
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:

@@ -38,9 +38,10 @@ jobs:
 #         with:
 #           artifacts: "angular-demo/dist/angular-demo/*"
 #           token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: GoogleCloudPlatform/release-please-action@v2
+      - name: release-please-action
+        uses: GoogleCloudPlatform/release-please-action@v2
         with:
-          release-type: node
-          package-name: release-please-action
+#           release-type: node
+#           package-name: release-please-action
           token: ${{ secrets.GITHUB_TOKEN }}
 

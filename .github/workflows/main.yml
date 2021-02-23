@@ -23,10 +23,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: npm install and npm run build
         run: |
-          npm i
-          npm run build
+          cd angular-demo && npm i
+          cd angular-demo && npm run build
       - name: Push Build to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "dist/angular-githubaction/*"
+          artifacts: "angular-demo/dist/angular-demo/*"
           token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,4 +1,8 @@
-on: push
+on:
+  push:
+    branches:
+      - main
+      - master
 name: Build Angular
 jobs:
   build:
@@ -27,8 +31,14 @@ jobs:
       - name: npm run build
         run: |
           cd angular-demo && npm run build
-      - name: Push Build to Releases
-        uses: ncipollo/release-action@v1
+#       - name: Push Build to Releases
+#         uses: ncipollo/release-action@v1
+#         with:
+#           artifacts: "angular-demo/dist/angular-demo/*"
+#           token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: GoogleCloudPlatform/release-please-action@v2
         with:
-          artifacts: "angular-demo/dist/angular-demo/*"
+          release-type: node
+          package-name: release-please-action
           token: ${{ secrets.GITHUB_TOKEN }}
+
